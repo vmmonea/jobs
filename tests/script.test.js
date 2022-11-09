@@ -1,6 +1,6 @@
 
 const moment = require('moment');
-const { createJobsQueue } = require('./script');
+const { createJobsQueue } = require('../src/script');
 
 const start = moment('2019-11-10 08:00:00');
 
