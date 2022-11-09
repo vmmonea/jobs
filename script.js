@@ -12,11 +12,8 @@ module.exports.createJobsQueue = (jobs, start) => {
         return previewDate.isBefore(moment(maxDate));
     });
 
-    console.log(jobs)
-
     while (jobs.length !== 0) {
         for (let i = 0; i < jobs.length; i++) {
-            console.log(`este e o ${i}`)
             const queueJob = [];
             queueJob.push(jobs[i]);
             jobs.splice(i, 1)
@@ -27,10 +24,8 @@ module.exports.createJobsQueue = (jobs, start) => {
                 const previewDate = start.clone().add(totalTime + estimateTime, 'hours')
 
                 //verifica se passa das 8 horas e se da tempo de executar mais um job dentro do max date
-                if ((totalTime + estimateTime) > 8 || previewDate.isAfter(moment(maxDate))) {
-                    console.log('not able to execute, do nothing')
-                } else {
-                    console.log(`dando push no ${i} ${j}`)
+                if ((totalTime + estimateTime) > 8 || previewDate.isAfter(moment(maxDate))) continue;
+                else {
                     queueJob.push(jobs[j]);
                     jobs.splice(j, 1)
                 }
@@ -40,6 +35,5 @@ module.exports.createJobsQueue = (jobs, start) => {
         }
     }
 
-    console.log(toWorkJobs)
-    // console.log(jobs)
+    return toWorkJobs
 }
